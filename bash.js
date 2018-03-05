@@ -12,5 +12,7 @@ process.stdin.on('data', function (data) {
   commands.ls(cmd);
   commands.echo(cmd);
   commands.cat(cmd);
-
+  commands.head(cmd);
+  commands.tail(cmd);
+  commands.sort(cmd);
 });
