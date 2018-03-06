@@ -5,14 +5,15 @@ process.stdout.write(`prompt > `);
 
 // The stdin 'data' event fires after a user types in a line
 process.stdin.on('data', function (data) {
-  const cmd = data.toString().trim(); // remove newline // process.argv[2];
+  const input = data.toString().trim().split(' ');
+  const cmd = input[0];
+  const args = input.slice(1);
 
-  commands.pwd(cmd);
-  commands.date(cmd);
-  commands.ls(cmd);
-  commands.echo(cmd);
-  commands.cat(cmd);
-  commands.head(cmd);
-  commands.tail(cmd);
-  commands.sort(cmd);
+  if (commands[cmd]) {
+    commands[cmd](args);
+  } else {
+    process.stderr.write('Command not found: ' + cmd);
+  }
 });
+
+// REVIEW REGEX CHARACTERS USED TO SPLIT WHITESPACE AND PIPING?
